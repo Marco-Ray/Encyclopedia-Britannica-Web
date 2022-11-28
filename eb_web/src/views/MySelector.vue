@@ -82,13 +82,14 @@ export default {
 <style scoped>
 #welcome_page {
   scroll-behavior: smooth;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
   background: url('@/assets/bg-info@1x.png');
 }
 
 #home {
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;

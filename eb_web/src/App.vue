@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <router-view
       v-slot="{ Component, route }"
       :filteredData="filteredData"
@@ -8,9 +8,7 @@
       @updateVariables="updateVariables"
     >
       <transition
-        :enter-active-class="route.meta.enter"
-        :leave-active-class="route.meta.leave"
-        mode="out-in"
+        name='slide'
       >
         <component
           :is="Component"
@@ -111,4 +109,28 @@ body, html {
   width: 100%;
 }
 
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.75s ease-out;
+}
+
+.slide-enter-to {
+  position: absolute;
+  bottom: 0;
+}
+
+.slide-enter-from {
+  position: absolute;
+  bottom: -100%;
+}
+
+.slide-leave-to {
+  position: absolute;
+  top: -100%;
+}
+
+.slide-leave-from {
+  position: absolute;
+  top: 0;
+}
 </style>
