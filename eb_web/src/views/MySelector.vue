@@ -72,7 +72,7 @@ export default {
     goPage() {
       if (this.dateStr.length > 0 && this.name.length > 0) {
         this.$emit('updateVariables', [this.dateStr, this.name]);
-        this.$router.push('/TimeLine');
+        this.$router.push({ path: '/TimeLine', query: { dateStr: this.dateStr } });
       }
     },
   },
