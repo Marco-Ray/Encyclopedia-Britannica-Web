@@ -98,6 +98,7 @@ body, html {
   width: 100%;
   margin: 0;
   overflow-y: hidden;
+  background-color: #F2F2F2;
 }
 
 #app {
@@ -110,28 +111,4 @@ body, html {
   width: 100%;
 }
 
-//.slide-enter-active,
-//.slide-leave-active {
-//  transition: all 0.75s ease-out;
-//}
-//
-//.slide-enter-to {
-//  position: absolute;
-//  down: 0;
-//}
-//
-//.slide-enter-from {
-//  position: absolute;
-//  dowm: -100%;
-//}
-//
-//.slide-leave-to {
-//  position: absolute;
-//  up: -100%;
-//}
-//
-//.slide-leave-from {
-//  position: absolute;
-//  up: 0;
-//}
 </style>

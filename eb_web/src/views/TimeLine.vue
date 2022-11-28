@@ -1,5 +1,6 @@
 <template>
   <div class="timeLine__Container">
+    <img id="book" :src="book" alt="book" />
     <button @click="goBack" class="goBack">Back</button>
     <div class="gridbox">
       <div class="timeLine">
@@ -55,6 +56,7 @@ export default {
       yearListSorted: [],
       reFilteredData: {},
       activeYear: 0,
+      book: require('@/assets/book.gif'), // eslint-disable-line
     };
   },
   created() {
@@ -151,5 +153,12 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+}
+
+#book {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 80px;
 }
 </style>
