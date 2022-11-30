@@ -4,6 +4,7 @@ import ForceGraph from '@/views/ForceGraph.vue';
 import TimeLine from '@/views/TimeLine.vue';
 import MySelector from '@/views/MySelector.vue';
 import Welcome from '@/views/Welcome.vue';
+import MyReport from '@/views/MyReport.vue';
 
 const routes = [
   {
@@ -11,8 +12,8 @@ const routes = [
     name: 'Home',
     component: Welcome,
     meta: {
-      enter: 'animate__animated animate__slideInUp',
-      leave: 'animate__animated animate__slideOutUp',
+      index: 0,
+      transitionName: 'slide-up',
     },
   },
   {
@@ -20,8 +21,17 @@ const routes = [
     name: 'Selector',
     component: MySelector,
     meta: {
-      enter: 'animate__animated animate__slideInUp',
-      leave: 'animate__animated animate__slideOutUp',
+      index: 1,
+      transitionName: 'slide-up',
+    },
+  },
+  {
+    path: '/Report',
+    name: 'Report',
+    component: MyReport,
+    meta: {
+      index: 2,
+      transitionName: 'slide-down',
     },
   },
   {
@@ -29,8 +39,8 @@ const routes = [
     name: 'ForceGraph',
     component: ForceGraph,
     meta: {
-      enter: 'animate__animated animate__slideInUp',
-      leave: 'animate__animated animate__slideOutUp',
+      index: 3,
+      transitionName: 'slide-down',
     },
   },
   {
@@ -38,8 +48,9 @@ const routes = [
     name: 'TimeLine',
     component: TimeLine,
     meta: {
-      enter: 'animate__animated animate__slideInUp',
-      leave: 'animate__animated animate__slideOutUp',
+      index: 4,
+      transitionName: 'slide-down',
+
     },
   },
   {
@@ -52,6 +63,13 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   linkExactActiveClass: 'text-red-500',
+});
+
+router.afterEach((to, from) => {
+  const toDepth = to.meta.index;
+  const fromDepth = from.meta.index;
+  // eslint-disable-next-line
+  to.meta.transitionName = toDepth > fromDepth ? 'slide-up' : 'slide-down';
 });
 
 export default router;

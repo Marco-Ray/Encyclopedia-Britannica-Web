@@ -1,6 +1,11 @@
 <template>
   <div class="forceGraph__Container">
-    <router-link :to="{ name: 'Home' }" class="goBack">Back</router-link>
+    <div class="arrow-container">
+        <!-- eslint-disable-next-line -->
+        <img :src="arrowUp" alt="goBack" class="arrow-back" @click="goBack"/>
+        <!-- eslint-disable-next-line -->
+        <img :src="arrowDown" alt="goPage" class="arrow-down" @click="goPage"/>
+      </div>
     <div class="container" style="cursor: pointer" v-if="filteredData.length > 0">
       <svg ref="svg" :width="width" :height="height">
         <g>
@@ -23,6 +28,7 @@
             :cx="node.x"
             :cy="node.y"
             :r="50"
+            class="bubble"
           >
           </circle>
           <text
@@ -52,12 +58,16 @@ export default {
   },
   data() {
     return {
+      // global variables
+      dateStr: this.$route.query.dateStr,
       // d3 variables
       links: this.links_r,
       nodes: this.nodes_r,
       width: document.documentElement.clientWidth - 6,
-      height: document.documentElement.clientHeight - 4,
+      height: document.documentElement.clientHeight - 140,
       simulation: '',
+      arrowUp: require('@/assets/button-w-up@1x.png'), // eslint-disable-line
+      arrowDown: require('@/assets/button-w-down@1x.png'), // eslint-disable-line
     };
   },
   mounted() {
@@ -81,6 +91,12 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+    goPage() {
+      this.$router.push({ path: '/TimeLine', query: { dateStr: this.dateStr } });
+    },
   },
 };
 </script>
@@ -89,26 +105,37 @@ export default {
 .forceGraph__Container {
   width: 100vw;
   height: 100vh;
+  background: black;
+}
+
+.arrow-back {
+  position: absolute;
+  top: 37px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 100;
+}
+
+.arrow-down {
+  position: absolute;
+  bottom: 37px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 100;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
-}
-
-.inputBar {
-  position: fixed;
-  top: 0;
-  right: 0;
 }
 
 .ballTxt {
   word-wrap: break-word;
 }
 
-.goBack {
-  position: fixed;
-  top: 0;
-  left: 0;
-}
 </style>

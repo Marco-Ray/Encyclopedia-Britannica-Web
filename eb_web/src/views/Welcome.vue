@@ -7,9 +7,9 @@
     <div id="images_container">
       <img id="title" :src="title" alt="title"/>
       <img id="star" :src="star" alt="star"
-           class="animate__animated animate__infinite animate__shakeX"/>
+           class="animate__animated animate__infinite animate__headShake"/>
       <img id="tellurion" :src="tellurion" alt="tellurion"
-           class="animate__animated animate__infinite animate__shakeX"/>
+           class="animate__animated animate__infinite animate__headShake"/>
     </div>
     <!-- eslint-disable-next-line -->
     <div id="click" @click="goSelector">Click</div>
@@ -59,7 +59,7 @@ export default {
 
 #title {
   position: absolute;
-  left: 497px;
+  left: 468px;
   top: 294px;
   width: 600px;
   height: 169px;
@@ -68,7 +68,7 @@ export default {
 
 #sub_title {
   position: absolute;
-  left: 614px;
+  left: 563px;
   top: 507px;
   width: 410px;
   height: 72px;
@@ -81,7 +81,7 @@ export default {
 #click {
   cursor: pointer;
   position: absolute;
-  left: 782px;
+  left: 731px;
   top: 639px;
   width: 74px;
   height: 29px;

@@ -8,7 +8,7 @@
       @updateVariables="updateVariables"
     >
       <transition
-        name='slide'
+        :name='route.meta.transitionName'
       >
         <component
           :is="Component"
@@ -30,7 +30,8 @@ export default {
       jsonData: [],
       filteredData: [],
       dateStr: '',
-      filterType: '',
+      filterType: 'PERSON',
+      name: '',
       nodes: [],
       links: [],
     };
@@ -83,7 +84,7 @@ export default {
     },
     updateVariables(msg) {
       this.dateStr = msg[0]; // eslint-disable-line
-      this.filterType = msg[1]; // eslint-disable-line
+      this.name = msg[1];  // eslint-disable-line
       this.filterByDate();
     },
   },
@@ -109,28 +110,55 @@ body, html {
   width: 100%;
 }
 
-.slide-enter-active,
-.slide-leave-active {
+// slide-up
+.slide-up-enter-active,
+.slide-up-leave-active {
   transition: all 0.75s ease-out;
 }
 
-.slide-enter-to {
+.slide-up-enter-to {
   position: absolute;
   bottom: 0;
 }
 
-.slide-enter-from {
+.slide-up-enter-from {
   position: absolute;
   bottom: -100%;
 }
 
-.slide-leave-to {
+.slide-up-leave-to {
   position: absolute;
   top: -100%;
 }
 
-.slide-leave-from {
+.slide-up-leave-from {
   position: absolute;
   top: 0;
+}
+
+// slide-down
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.75s ease-out;
+}
+
+.slide-down-enter-to {
+  position: absolute;
+  top: 0;
+}
+
+.slide-down-enter-from {
+  position: absolute;
+  top: -100%;
+}
+
+.slide-down-leave-to {
+  position: absolute;
+  bottom: -100%;
+}
+
+.slide-down-leave-from {
+  position: absolute;
+  bottom: 0;
 }
 </style>

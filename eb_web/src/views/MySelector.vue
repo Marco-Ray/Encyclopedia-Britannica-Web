@@ -1,5 +1,9 @@
 <template>
   <div id="welcome_page">
+    <!-- eslint-disable-next-line -->
+    <div class="arrow-container" @click="goBack">
+      <img :src="arrowUp" alt="goBack" class="arrow-back" />
+    </div>
     <div>
       <img class="star" :src="star" alt="star"/>
     </div>
@@ -64,6 +68,7 @@ export default {
         value: 'WORK_OF_ART',
         label: 'Work of Art',
       }],
+      arrowUp: require('@/assets/button-b@1x.png'), // eslint-disable-line
       star: require('@/assets/star@1x.png'), // eslint-disable-line
     };
   },
@@ -71,9 +76,13 @@ export default {
     // TODO
     goPage() {
       if (this.dateStr.length > 0 && this.name.length > 0) {
+      // if (this.dateStr.length > 0) {
         this.$emit('updateVariables', [this.dateStr, this.name]);
-        this.$router.push({ path: '/TimeLine', query: { dateStr: this.dateStr } });
+        this.$router.push({ path: '/Report', query: { dateStr: this.dateStr, name: this.name } });
       }
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
 };
@@ -103,6 +112,15 @@ export default {
   font-size: 47px;
   text-align: left;
   font-family: Raleway-regular;
+}
+
+.arrow-container {
+  position: absolute;
+  top: 37px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 100;
 }
 
 .star {

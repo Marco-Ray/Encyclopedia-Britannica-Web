@@ -1,8 +1,17 @@
 <template>
   <div class="timeLine__Container">
-    <!-- eslint-disable-next-line -->
-    <div @click="goBack" class="selected_date">
-      {{ date }} / {{ month }}
+    <div class="elements_container">
+      <div class="arrow-container">
+        <!-- eslint-disable-next-line -->
+        <img :src="arrowUp" alt="goBack" class="arrow-back" @click="goBack"/>
+      </div>
+      <!-- eslint-disable-next-line -->
+      <div class="selected_date" @click="goHome">
+        {{ date }} / {{ month }}
+      </div>
+      <div class="gif_box">
+        <img :src="book" alt="book" class="book" :class="!isPopover ? 'play': 'stop'"/>
+      </div>
     </div>
     <div class="gridbox">
       <div class="timeLine">
@@ -96,6 +105,9 @@ export default {
       reFilteredData: {},
       activeYear: 0,
       bgBorder: require('@/assets/bg-border@1x.png'), // eslint-disable-line
+      arrowUp: require('@/assets/button-w-up@1x.png'), // eslint-disable-line
+      arrowDown: require('@/assets/button-w-down@1x.png'), // eslint-disable-line
+      book: require('@/assets/book.gif'), // eslint-disable-line
       monthList: [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
       ],
@@ -134,6 +146,12 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+    goPage() {
+      this.$router.push({ path: '/ForceGraph', query: { dateStr: this.dateStr } });
+    },
+    goHome() {
+      this.$router.push('/');
+    },
     uniqueFunc(arr, uniId) {
       const res = new Map();
       return arr.filter((item) => !res.has(item[uniId]) && res.set(item[uniId], 1));
@@ -148,7 +166,8 @@ export default {
       return this.dateStr.split('-')[2];
     },
     month() {
-      return this.monthList[this.dateStr.split('-')[1]];
+      const monthIndex = parseInt(this.dateStr.split('-')[1], 10);
+      return this.monthList[monthIndex - 1];
     },
   },
 };
@@ -159,6 +178,37 @@ export default {
   width: 100vw;
   height: 100vh;
   background: url('@/assets/bg-timeline@1x.png');
+}
+
+.arrow-back {
+  position: absolute;
+  top: 37px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 100;
+}
+
+.arrow-down {
+  position: absolute;
+  bottom: 37px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 100;
+}
+
+.gif_box {
+  position: absolute;
+  top: 239px;
+  left: 0;
+  .book {
+    width: 387px;
+  }
+}
+
+.stop {
+  animation-play-state: paused;
 }
 
 .gridbox {
