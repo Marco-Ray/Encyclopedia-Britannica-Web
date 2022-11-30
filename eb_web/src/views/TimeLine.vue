@@ -10,8 +10,8 @@
         <el-carousel
           direction="vertical"
           indicator-position="none"
-          :autoplay="false"
           interval="5000"
+          :autoplay="!isPopover"
           @change="setActiveYear"
         >
           <el-carousel-item
@@ -35,21 +35,23 @@
           class="eventsBox__Container"
         >
           <el-scrollbar>
+            <!-- eslint-disable-next-line -->
             <div
               v-for="(event, i) in reFilteredData[year]"
               :key="i" class="eventCard"
+              @click="setPopover(event)"
             >
               <img class="card-bg" :src="bgBorder" alt="card-bg" />
               <div class="card_content">
                 <div class="lemma">
-                {{ event.PERSON || event.EVENT}}
+                {{ event.headers }}
               </div>
                 <div class="definition">
-                  <el-scrollbar class="definition_box">
+                  <div class="definition_box">
                     <span class="definition_str">
                       {{ event.definition }}
                     </span>
-                  </el-scrollbar>
+                  </div>
                 </div>
               </div>
             </div>
@@ -57,18 +59,32 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      v-model="isPopover"
+      custom-class="popover-card"
+      :show-close="false"
+    >
+    <!-- eslint-disable-next-line -->
+      <div slot="title">
+        <div class="popover-lemma"> {{ selectedEvent.headers }} </div>
+        <div class="popover-year"> {{ activeYear }} </div>
+      </div>
+      <el-scrollbar class="popover-definition__container">
+        <div>{{ selectedEvent.definition }}</div>
+      </el-scrollbar>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import {
-  ElCarousel, ElCarouselItem, ElScrollbar,
+  ElCarousel, ElCarouselItem, ElScrollbar, ElDialog,
 } from 'element-plus';
 
 export default {
   name: 'TimeLine',
   components: {
-    ElCarousel, ElCarouselItem, ElScrollbar,
+    ElCarousel, ElCarouselItem, ElScrollbar, ElDialog,
   },
   props: {
     filteredData: Array,
@@ -83,6 +99,8 @@ export default {
       monthList: [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
       ],
+      isPopover: false,
+      selectedEvent: {},
     };
   },
   created() {
@@ -99,12 +117,13 @@ export default {
       });
       // group the filteredData by Year as reFilteredData
       this.yearListSorted.forEach((year) => {
-        const eventList = [];
+        let eventList = [];
         this.filteredData.forEach((record) => {
           if (year === record.date.getFullYear()) {
             eventList.push(record);
           }
         });
+        eventList = this.uniqueFunc(eventList, 'headers');
         this.reFilteredData[year] = eventList;
       });
       this.activeYear = this.yearListSorted[0]; // eslint-disable-line
@@ -114,6 +133,14 @@ export default {
     },
     goBack() {
       this.$router.go(-1);
+    },
+    uniqueFunc(arr, uniId) {
+      const res = new Map();
+      return arr.filter((item) => !res.has(item[uniId]) && res.set(item[uniId], 1));
+    },
+    setPopover(event) {
+      this.isPopover = true;
+      this.selectedEvent = event;
     },
   },
   computed: {
@@ -186,6 +213,7 @@ export default {
 }
 
 .selected_date {
+  cursor: pointer;
   position: absolute;
   left: 55px;
   top: 75px;
@@ -215,6 +243,7 @@ export default {
 }
 
 .eventCard {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   .card-bg {
@@ -238,6 +267,9 @@ export default {
       font-size: 30px;
       text-align: left;
       font-family: Raleway-regular;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
     .definition {
       margin: 0 20px 10px 20px;
@@ -245,14 +277,49 @@ export default {
       color: rgba(255, 255, 255, 1);
       font-size: 14px;
       text-align: left;
+      overflow: hidden;
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      text-overflow:ellipsis;
+      -webkit-line-clamp:8;//例如超过2行显示省略号
       ::v-deep .el-scrollbar__bar {
         right: -10px;
       }
       .definition_str {
         padding-top: 18px;
+
       }
     }
   }
 }
+</style>
+<style lang="scss">
+.popover-card {
+  margin-left: 627px !important;
+  margin-right: 111px !important;
+  width: 798px;
+  height: 605px;
+  border-radius: 25px 25px 25px 25px !important;
+  background-color: rgba(250, 251, 245, 1);
+  color: rgba(16, 16, 16, 1);
+  text-align: left;
+  .el-dialog__header {
+    display: none;
+  }
+  .el-dialog__body {
+    padding: 51px 53px 52px 53px;
+    font-size: 20px;
+    height: 390px;
+    .popover-lemma {
+      height: 68px;
+      font-size: 58px;
+    }
+    .popover-year {
+      height: 33px;
+      font-size: 28px;
+      margin-bottom: 17px;
+    }
 
+  }
+}
 </style>
