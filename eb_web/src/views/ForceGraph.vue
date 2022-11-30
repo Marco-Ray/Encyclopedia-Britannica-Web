@@ -1,12 +1,13 @@
 <template>
   <div class="forceGraph__Container">
     <div class="arrow-container">
+        <img :src="mask" alt="mask" class="mask" />
         <!-- eslint-disable-next-line -->
         <img :src="arrowUp" alt="goBack" class="arrow-back" @click="goBack"/>
         <!-- eslint-disable-next-line -->
         <img :src="arrowDown" alt="goPage" class="arrow-down" @click="goPage"/>
       </div>
-    <div class="container" style="cursor: pointer" v-if="filteredData.length > 0">
+    <div class="container" v-if="filteredData.length > 0">
       <svg ref="svg" :width="width" :height="height">
         <g>
           <line
@@ -16,19 +17,19 @@
             :x2="link.x2"
             :y1="link.y1"
             :y2="link.y2"
-            style="stroke: red"
+            style="stroke: #8894A2"
           ></line>
         </g>
         <g class="node"
-           style="cursor: pointer;"
            :key="node.id"
            v-for="node in nodes">
           <circle
-            :style="{fill: node.id==='center'?'purple':'blue'}"
+            :style="{
+              fill: node.id==='center'? '#CABEB7' : '#2F3F56'
+            }"
             :cx="node.x"
             :cy="node.y"
-            :r="50"
-            class="bubble"
+            :r="node.id==='center'? 50 : 40"
           >
           </circle>
           <text
@@ -36,12 +37,15 @@
             :x="node.x"
             :y="node.y"
             dx="0" dy="5"
-            fill="white"
+            :fill="node.id === 'center' ? '#2F3F56' : '#E2E3DE'"
             text-anchor="middle">
             {{node.value}}
           </text>
         </g>
       </svg>
+    </div>
+    <div class="slogan">
+      You could be the next celebrity whose birthday falls on this day!
     </div>
   </div>
 </template>
@@ -66,8 +70,9 @@ export default {
       width: document.documentElement.clientWidth - 6,
       height: document.documentElement.clientHeight - 140,
       simulation: '',
-      arrowUp: require('@/assets/button-w-up@1x.png'), // eslint-disable-line
-      arrowDown: require('@/assets/button-w-down@1x.png'), // eslint-disable-line
+      arrowUp: require('@/assets/button-b-up@1x.png'), // eslint-disable-line
+      arrowDown: require('@/assets/button-b-down@1x.png'), // eslint-disable-line
+      mask: require('@/assets/bg-forcegraph@1x.png'), // eslint-disable-line
     };
   },
   mounted() {
@@ -75,8 +80,8 @@ export default {
     if (this.filteredData.length > 0) {
       this.simulation = d3.forceSimulation(this.nodes)
         .force('charge', d3.forceManyBody().strength(-100))
-        .force('link', d3.forceLink(this.links).id((d) => d.id).distance(150))
-        .force('collide', d3.forceCollide().radius(60).iterations(2))
+        .force('link', d3.forceLink(this.links).id((d) => d.id).distance(100))
+        .force('collide', d3.forceCollide().radius(46).iterations(2))
         .force('center', d3.forceCenter(this.width / 2, this.height / 2))
         .on('tick', () => {
           this.nodes = this.nodes.map((v) => v);
@@ -105,12 +110,12 @@ export default {
 .forceGraph__Container {
   width: 100vw;
   height: 100vh;
-  background: black;
+  background: url('@/assets/bg-forcegraph@1x.png');
 }
 
 .arrow-back {
   position: absolute;
-  top: 37px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -119,7 +124,7 @@ export default {
 
 .arrow-down {
   position: absolute;
-  bottom: 37px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -138,4 +143,26 @@ export default {
   word-wrap: break-word;
 }
 
+.slogan {
+  position: absolute;
+  bottom: 78px;
+  left: 62px;
+  width: 310px;
+  height: 165px;
+  font-size: 28px;
+  font-family: GillSans;
+  font-weight: bold;
+  line-height: 40px;
+  z-index: 50;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  pointer-events:none;
+}
 </style>

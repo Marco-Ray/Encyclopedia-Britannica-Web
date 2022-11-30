@@ -12,7 +12,7 @@
            class="animate__animated animate__infinite animate__headShake"/>
     </div>
     <!-- eslint-disable-next-line -->
-    <div id="click" @click="goSelector">Click</div>
+    <div id="click" @click="goSelector">START</div>
   </div>
 </template>
 
@@ -68,8 +68,9 @@ export default {
 
 #sub_title {
   position: absolute;
-  left: 563px;
   top: 507px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 410px;
   height: 72px;
   color: rgba(51, 51, 51, 1);
@@ -81,13 +82,19 @@ export default {
 #click {
   cursor: pointer;
   position: absolute;
-  left: 731px;
   top: 639px;
-  width: 74px;
-  height: 29px;
-  color: rgba(51, 51, 51, 1);
-  font-size: 24px;
-  text-align: left;
-  font-family: Arial-700;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgba(255, 255, 255, 0);
+  text-align: center;
+  border: 3px solid rgba(108, 108, 108, 1);
+  font-family: Baijam;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(16, 16, 16, 1);
 }
 </style>

@@ -1,13 +1,14 @@
 <template>
   <div class="timeLine__Container">
     <div class="elements_container">
+      <img class="mask" :src="mask" alt="mask" />
       <div class="arrow-container">
         <!-- eslint-disable-next-line -->
         <img :src="arrowUp" alt="goBack" class="arrow-back" @click="goBack"/>
       </div>
       <!-- eslint-disable-next-line -->
       <div class="selected_date" @click="goHome">
-        {{ date }} / {{ month }}
+        <div>{{ date }} / {{ month }}</div>
       </div>
       <div class="gif_box">
         <img :src="book" alt="book" class="book" :class="!isPopover ? 'play': 'stop'"/>
@@ -19,7 +20,7 @@
         <el-carousel
           direction="vertical"
           indicator-position="none"
-          interval="5000"
+          interval="3000"
           :autoplay="!isPopover"
           @change="setActiveYear"
         >
@@ -27,7 +28,6 @@
             v-for="year in yearListSorted"
             :key="year"
             class="year"
-
           >
             <div class="yearItem">
               <div class="index"></div>
@@ -79,7 +79,7 @@
         <div class="popover-year"> {{ activeYear }} </div>
       </div>
       <el-scrollbar class="popover-definition__container">
-        <div>{{ selectedEvent.definition }}</div>
+        <div class="popover-definition">{{ selectedEvent.definition }}</div>
       </el-scrollbar>
     </el-dialog>
   </div>
@@ -105,8 +105,8 @@ export default {
       reFilteredData: {},
       activeYear: 0,
       bgBorder: require('@/assets/bg-border@1x.png'), // eslint-disable-line
-      arrowUp: require('@/assets/button-w-up@1x.png'), // eslint-disable-line
-      arrowDown: require('@/assets/button-w-down@1x.png'), // eslint-disable-line
+      arrowUp: require('@/assets/button-b-up@1x.png'), // eslint-disable-line
+      mask: require('@/assets/mask-timeline@1x.png'), // eslint-disable-line
       book: require('@/assets/book.gif'), // eslint-disable-line
       monthList: [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
@@ -174,24 +174,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  pointer-events:none;
+}
+
 .timeLine__Container {
   width: 100vw;
   height: 100vh;
-  background: url('@/assets/bg-timeline@1x.png');
 }
 
 .arrow-back {
   position: absolute;
   top: 37px;
-  left: 50%;
-  transform: translateX(-50%);
-  cursor: pointer;
-  z-index: 100;
-}
-
-.arrow-down {
-  position: absolute;
-  bottom: 37px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -205,10 +205,6 @@ export default {
   .book {
     width: 387px;
   }
-}
-
-.stop {
-  animation-play-state: paused;
 }
 
 .gridbox {
@@ -236,18 +232,20 @@ export default {
   left: 14px;
   width: 3px;
   min-height: 100%;
-  background-color: white;
+  background-color: rgba(226, 227, 222, 100);
 }
 
 .year {
-  color: white;
+  color: rgba(226, 227, 222, 100);
   text-align: start;
   font-size: 60px;
+  font-family: Baijam;
+  font-style: italic;
   .yearItem {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 276px;
+    margin-top: 300px;
     .yearStr {
       margin-left: 38px;
     }
@@ -257,21 +255,27 @@ export default {
 .index {
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: rgba(226, 227, 222, 100);
   border-radius: 50%;
   z-index: 100;
 }
 
 .selected_date {
-  cursor: pointer;
   position: absolute;
-  left: 55px;
-  top: 75px;
-  height: 71px;
-  color: rgba(255, 255, 255, 1);
-  font-size: 60px;
+  top: 142px;
+  left: 64px;
+  width: 220px;
+  height: 118px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 50px;
   text-align: center;
-  font-family: Raleway-regular;
+  font-family: GillSans;
+  font-weight: bold;
+  background: url('@/assets/bg-selected-date.png');
 }
 
 .eventsBox {
@@ -296,6 +300,8 @@ export default {
   cursor: pointer;
   display: inline-block;
   position: relative;
+  font-family: Baijam;
+  font-style: italic;
   .card-bg {
     position: absolute;
     top: 0;
@@ -316,22 +322,23 @@ export default {
       color: rgba(255, 255, 255, 1);
       font-size: 30px;
       text-align: left;
-      font-family: Raleway-regular;
       overflow: hidden;
+      font-weight: bold;
       white-space: nowrap;
       text-overflow: ellipsis;
     }
     .definition {
       margin: 0 20px 10px 20px;
-      height: 133px;
+      height: 124px;
       color: rgba(255, 255, 255, 1);
       font-size: 14px;
+      font-weight: light;
       text-align: left;
       overflow: hidden;
       display:-webkit-box;
       -webkit-box-orient:vertical;
       text-overflow:ellipsis;
-      -webkit-line-clamp:8;//例如超过2行显示省略号
+      -webkit-line-clamp: 7; //例如超过2行显示省略号
       ::v-deep .el-scrollbar__bar {
         right: -10px;
       }
@@ -343,6 +350,7 @@ export default {
   }
 }
 </style>
+
 <style lang="scss">
 .popover-card {
   margin-left: 627px !important;
@@ -353,6 +361,7 @@ export default {
   background-color: rgba(250, 251, 245, 1);
   color: rgba(16, 16, 16, 1);
   text-align: left;
+  font-family: Baijam;
   .el-dialog__header {
     display: none;
   }
@@ -362,14 +371,19 @@ export default {
     height: 390px;
     .popover-lemma {
       height: 68px;
-      font-size: 58px;
+      font-size: 48px;
+      font-weight: bold;
     }
     .popover-year {
       height: 33px;
-      font-size: 28px;
+      font-size: 24px;
+      font-weight: bold;
       margin-bottom: 17px;
     }
-
+    .popover-definition {
+      font-size: 24px;
+      font-style: italic;
+    }
   }
 }
 </style>

@@ -22,7 +22,9 @@
         </el-date-picker>
       </div>
       <!-- eslint-disable-next-line -->
-      <div class="confirm" @click="goPage">CONFIRM</div>
+      <div class="confirm" @click="goPage">
+        <img :src="confirm" alt="confirm" />
+      </div>
       <!--el-select v-model="filterType" @change="goPage">
         <el-option
           v-for="item in options"
@@ -68,8 +70,9 @@ export default {
         value: 'WORK_OF_ART',
         label: 'Work of Art',
       }],
-      arrowUp: require('@/assets/button-b@1x.png'), // eslint-disable-line
+      arrowUp: require('@/assets/button-b-up@1x.png'), // eslint-disable-line
       star: require('@/assets/star@1x.png'), // eslint-disable-line
+      confirm: require('@/assets/Confirm@1x.png'), // eslint-disable-line
     };
   },
   methods: {
@@ -79,6 +82,8 @@ export default {
       // if (this.dateStr.length > 0) {
         this.$emit('updateVariables', [this.dateStr, this.name]);
         this.$router.push({ path: '/Report', query: { dateStr: this.dateStr, name: this.name } });
+      } else {
+        alert('Please input your name and birthday correctly.');
       }
     },
     goBack() {
@@ -111,7 +116,9 @@ export default {
   color: rgba(242, 242, 242, 1);
   font-size: 47px;
   text-align: left;
-  font-family: Raleway-regular;
+  font-family: Baijam;
+  font-weight: light;
+  font-style:italic;
 }
 
 .arrow-container {
@@ -137,7 +144,6 @@ export default {
   width: 271px;
   height: 41px;
   background-color: rgba(242, 242, 242, 0);
-  text-align: left;
 }
 
 ::v-deep(.el-date-editor) {
@@ -156,15 +162,15 @@ export default {
 
 ::v-deep .el-input__inner {
   text-align: center;
+  font-family: Baijam;
+  font-weight: light;
+  font-style: italic;
 }
 
 .confirm {
   cursor: pointer;
   margin-top: 55px;
-  width: 180px;
-  height: 42px;
-  line-height: 42px;
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 1);
+  width: 200px;
+  height: 86px;
 }
 </style>

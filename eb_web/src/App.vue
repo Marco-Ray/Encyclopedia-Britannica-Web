@@ -64,7 +64,7 @@ export default {
       });
       this.filteredData.sort((a, b) => { return a.date > b.date ? 1 : -1; }); // eslint-disable-line
       const nodes = [];
-      nodes.push({ id: 'center', value: this.dateStr });
+      nodes.push({ id: 'center', value: this.date });
       this.filteredData.forEach((record, index) => {
         if (record[this.filterType] !== 'nan') {
           nodes.push({ id: index, value: record[this.filterType] });
@@ -88,6 +88,15 @@ export default {
       this.filterByDate();
     },
   },
+  computed: {
+    date() {
+      if (this.dateStr.length > 0) {
+        const date = this.dateStr.split('-')[1] + '-' + this.dateStr.split('-')[2]; // eslint-disable-line
+        return date;
+      }
+      return '';
+    },
+  },
 };
 </script>
 
@@ -97,7 +106,7 @@ body, html {
   width: 100%;
   margin: 0;
   overflow-y: hidden;
-  background-color: #F2F2F2;
+  background: url('@/assets/bg@1x.png');
 }
 
 #app {

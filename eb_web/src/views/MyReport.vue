@@ -9,13 +9,22 @@
       </div>
     </div>
     <div class="report">
-      <div>My name is {{ name }}.</div>
-      <div>My birthday is {{ dateStr }}.</div>
-      <div>There are 21497 entries in the Encyclopaedia Britannica.</div>
+      <div>Hi, <span class="emphasize">{{ name }}</span>!</div>
+      <div>Your birthday is <span class="emphasize">{{ dateStr }}</span>.</div>
+      <div>There are
+        <span class="emphasize">21497</span>
+        entries in the
+      </div>
+      <div>
+        Encyclopaedia Britannica.
+      </div>
       <div>
         Of these,
-        {{ nodes_r.length - 1 }} famous people
-        are related to my birthday.
+        <span class="emphasize">{{ nodes_r.length - 1 }}</span> famous people
+        are related to
+      </div>
+      <div>
+        your birthday.
       </div>
     </div>
   </div>
@@ -32,8 +41,8 @@ export default {
     return {
       name: this.$route.query.name,
       dateStr: this.$route.query.dateStr,
-      arrowUp: require('@/assets/button-w-up@1x.png'), // eslint-disable-line
-      arrowDown: require('@/assets/button-w-down@1x.png'), // eslint-disable-line
+      arrowUp: require('@/assets/button-b-up@1x.png'), // eslint-disable-line
+      arrowDown: require('@/assets/button-b-down@1x.png'), // eslint-disable-line
     };
   },
   methods: {
@@ -51,12 +60,12 @@ export default {
 .report__container {
   width: 100vw;
   height: 100vh;
-  background: black;
+  background: url('@/assets/bg-report@1x.png');
 }
 
 .arrow-back {
   position: absolute;
-  top: 37px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -65,7 +74,7 @@ export default {
 
 .arrow-down {
   position: absolute;
-  bottom: 37px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -79,5 +88,13 @@ export default {
   align-items: center;
   width: 100vw;
   height: 100vh;
+  font-family: Baijam;
+  font-size: 30px;
+  color: white;
+  line-height: 40px;
+  .emphasize {
+    font-weight: bold;
+    color: yellow;
+  }
 }
 </style>
