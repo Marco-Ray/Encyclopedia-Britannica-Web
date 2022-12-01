@@ -4,8 +4,8 @@
 import axios from 'axios';
 
 const service = axios.create({
-  baseURL: '', // 请求本地json文件，那么baseURL取空字符串，域名就会是项目域名
-  timeout: 30000,
+  baseURL: '/api', // 请求本地json文件，那么baseURL取空字符串，域名就会是项目域名
+  timeout: 60000,
 });
 
 // 请求拦截
