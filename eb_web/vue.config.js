@@ -1,21 +1,5 @@
-// const { defineConfig } = require('@vue/cli-service');
-//
-// module.exports = defineConfig({
-//   transpileDependencies: true,
-// });
+const { defineConfig } = require('@vue/cli-service');
 
-module.exports = {
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'https://firebasestorage.googleapis.com',
-        changeOrigin: true,
-        ws: true,
-        secure: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    }
-  }
-};
+module.exports = defineConfig({
+  transpileDependencies: true,
+});

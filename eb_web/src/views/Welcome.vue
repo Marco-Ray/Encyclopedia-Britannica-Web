@@ -11,8 +11,14 @@
       <img id="tellurion" :src="tellurion" alt="tellurion"
            class="animate__animated animate__infinite animate__headShake"/>
     </div>
-    <!-- eslint-disable-next-line -->
-    <div id="click" @click="goSelector">START</div>
+    <div>
+      <!-- eslint-disable-next-line -->
+      <div v-if="isloaded" id="click" @click="goSelector">START</div>
+      <div v-else id="loading"
+        class="animate__animated animate__infinite animate__flash">
+        Loading...
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,6 +26,9 @@
 
 export default {
   name: 'WelcomePage',
+  props: {
+    isloaded: Boolean,
+  },
   data() {
     return {
       star: require('@/assets/star@1x.png'), // eslint-disable-line
@@ -79,8 +88,7 @@ export default {
   font-family: Baijam;
 }
 
-#click {
-  cursor: pointer;
+#click, #loading {
   position: absolute;
   top: 639px;
   left: 50%;
@@ -96,5 +104,9 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: rgba(16, 16, 16, 1);
+}
+
+#click {
+  cursor: pointer;
 }
 </style>

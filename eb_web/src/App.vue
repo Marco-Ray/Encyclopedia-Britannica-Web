@@ -5,6 +5,7 @@
       :filteredData="filteredData"
       :nodes_r="nodes"
       :links_r="links"
+      :isloaded="isloaded"
       @updateVariables="updateVariables"
     >
       <transition
@@ -21,7 +22,7 @@
 </template>
 
 <script lang="js">
-import { getJsonDataApi } from '@/api/data';
+// import { getJsonDataApi } from '@/api/data';
 import { compareDate } from '@/utils/jsonOperator';
 
 export default {
@@ -34,6 +35,8 @@ export default {
       name: '',
       nodes: [],
       links: [],
+      isloaded: false,
+      url: 'https://firebasestorage.googleapis.com/v0/b/my-site-c1432.appspot.com/o/data%2Feight_ed_lemma_with_date_and_labels.json?alt=media&token=541bc88c-68c7-45ba-b131-14a60a85bf0b',
     };
   },
   created() {
@@ -41,13 +44,22 @@ export default {
   },
   methods: {
     async getJsonData() {
-      const res = await getJsonDataApi();
-      this.jsonData = res;
-      // transfer str to datetime object
-      // eslint-disable-next-line
-      for (let i in this.jsonData) {
-        this.jsonData[i].date = new Date(this.jsonData[i].date);
-      }
+      // const res = await getJsonDataApi();
+      // this.jsonData = res;
+      // // transfer str to datetime object
+      // // eslint-disable-next-line
+      // for (let i in this.jsonData) {
+      //   this.jsonData[i].date = new Date(this.jsonData[i].date);
+      // }
+      this.axios.get(this.url).then((res) => {
+        this.jsonData = res.data;
+        // transfer str to datetime object
+        // eslint-disable-next-line
+        for (let i in this.jsonData) {
+          this.jsonData[i].date = new Date(this.jsonData[i].date);
+        }
+        this.isloaded = true;
+      });
     },
     filterByDate() {
       // reset
