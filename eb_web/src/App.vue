@@ -36,7 +36,7 @@ export default {
       nodes: [],
       links: [],
       isloaded: false,
-      url: 'https://firebasestorage.googleapis.com/v0/b/my-site-c1432.appspot.com/o/data%2Feight_ed_lemma_with_date_and_labels.json?alt=media&token=541bc88c-68c7-45ba-b131-14a60a85bf0b',
+      url: 'https://firebasestorage.googleapis.com/v0/b/ebweb-3c166.appspot.com/o/eight_ed_lemma_with_date_and_labels.json?alt=media&token=a2293a75-9468-4852-ad62-8c9332846a76',
     };
   },
   created() {
