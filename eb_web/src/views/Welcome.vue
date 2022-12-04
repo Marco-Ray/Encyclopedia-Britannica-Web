@@ -1,8 +1,12 @@
 <template>
   <div class="welcome">
     <div>
-      <div id="sub_title">To find the events that happened on your birth-day and celebrities
-      that have the same birthday in history</div>
+      <div id="sub_title">
+        <div>Find your connection to the encyclopedia!</div>
+        <div>What happened on your birthday in history?</div>
+        <div>We will use your birthday as a medium to match
+        you with encyclopedia entries about your birthday.</div>
+      </div>
     </div>
     <div id="images_container">
       <img id="title" :src="title" alt="title"/>
@@ -52,8 +56,8 @@ export default {
 
 #tellurion {
   position: absolute;
-  bottom: 97px;
-  left: 261px;
+  bottom: 91px;
+  left: 202px;
   --animate-duration: 2s;
 }
 
@@ -71,8 +75,8 @@ export default {
   top: 507px;
   left: 50%;
   transform: translateX(-50%);
-  width: 410px;
-  height: 72px;
+  width: 467px;
+  height: 86px;
   color: rgba(51, 51, 51, 1);
   font-size: 19px;
   text-align: center;

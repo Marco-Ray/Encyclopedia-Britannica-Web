@@ -6,6 +6,13 @@
     </div>
     <div>
       <img class="star" :src="star" alt="star"/>
+      <div class="hint-r">
+        We will match you with famous people
+        and events in the encyclopedia that share your birthday.
+      </div>
+      <div class="hint-l">
+        * we do not store any your infomation.
+      </div>
     </div>
     <div id="home">
       <div class="title">FILL IN INFO</div>
@@ -134,6 +141,25 @@ export default {
   position: absolute;
   left: 924px;
   top: 226px;
+}
+
+.hint-r {
+  position: absolute;
+  bottom: 25px;
+  right: 21px;
+  width: 313px;
+  height: 150px;
+  color: rgba(16, 16, 16, 1);
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  font-family: Baijam;
+}
+
+.hint-l {
+  position: absolute;
+  bottom: 25px;
+  left: 21px;
 }
 
 .name_input, .birthday_selector {

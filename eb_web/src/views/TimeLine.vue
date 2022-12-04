@@ -10,8 +10,11 @@
       <div class="selected_date" @click="goHome">
         <div>{{ date }} / {{ month }}</div>
       </div>
-      <div class="gif_box">
+      <!--div class="gif_box">
         <img :src="book" alt="book" class="book" :class="!isPopover ? 'play': 'stop'"/>
+      </div-->
+      <div class="hint">
+        This day in history...
       </div>
     </div>
     <div class="gridbox">
@@ -385,5 +388,19 @@ export default {
       font-style: italic;
     }
   }
+}
+
+.hint {
+  position: absolute;
+  left: 16px;
+  bottom: 61px;
+  z-index: 5;
+  width: 257px;
+  height: 33px;
+  color: rgba(16, 16, 16, 1);
+  font-size: 28px;
+  text-align: left;
+  font-family: Baijam;
+  font-weight: bold;
 }
 </style>
