@@ -10,9 +10,9 @@
       <div class="selected_date" @click="goHome">
         <div>{{ date }} / {{ month }}</div>
       </div>
-      <!--div class="gif_box">
+      <div class="gif_box">
         <img :src="book" alt="book" class="book" :class="!isPopover ? 'play': 'stop'"/>
-      </div-->
+      </div>
       <div class="hint">
         This day in history...
       </div>
@@ -279,6 +279,7 @@ export default {
   font-family: GillSans;
   font-weight: bold;
   background: url('@/assets/bg-selected-date.png');
+  background-size: cover;
 }
 
 .eventsBox {

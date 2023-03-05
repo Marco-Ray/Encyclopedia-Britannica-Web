@@ -107,6 +107,7 @@ body, html {
   margin: 0;
   overflow-y: hidden;
   background: url('@/assets/bg@1x.png');
+  background-size: cover;
 }
 
 #app {

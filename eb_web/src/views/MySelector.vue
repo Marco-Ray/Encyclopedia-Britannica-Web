@@ -106,6 +106,7 @@ export default {
   height: 100vh;
   width: 100vw;
   background: url('@/assets/bg-info@1x.png');
+  background-size: cover;
 }
 
 #home {

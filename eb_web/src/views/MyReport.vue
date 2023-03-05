@@ -61,6 +61,7 @@ export default {
   width: 100vw;
   height: 100vh;
   background: url('@/assets/bg-report@1x.png');
+  background-size: cover;
 }
 
 .arrow-back {

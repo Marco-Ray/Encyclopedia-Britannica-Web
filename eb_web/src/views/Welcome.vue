@@ -63,8 +63,9 @@ export default {
 
 #title {
   position: absolute;
-  left: 468px;
-  top: 294px;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%) translateY(-50%);
   width: 600px;
   height: 169px;
   text-align: center;
